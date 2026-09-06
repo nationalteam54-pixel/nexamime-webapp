@@ -1,1 +1,41 @@
 *{box-sizing:border-box}body{margin:0;background:#080812;color:#f7f7ff;font-family:Inter,Arial,sans-serif}.app{max-width:520px;margin:auto;min-height:100vh;padding:18px 16px 92px;background:radial-gradient(circle at 50% -10%,#24154b 0,#0b0a15 38%,#080812 72%)}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.brand{font-size:25px;font-weight:900;letter-spacing:-1px}.brand span{color:#a879ff}.sub{font-size:11px;color:#85859b;margin-top:3px}.icon-btn{width:42px;height:42px;border:1px solid #28243a;border-radius:14px;background:#151222;color:white}.hero-card{padding:22px;border:1px solid #33254d;border-radius:25px;background:linear-gradient(145deg,#1b1530,#100e1c);box-shadow:0 18px 50px #0008}.hero-label{font-size:11px;color:#8f8ba3;letter-spacing:1.4px}.balance{font-size:40px;font-weight:900;margin:5px 0}.profit{font-size:12px;color:#9fdfb1}.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.hero-actions button{padding:13px;border:0;border-radius:14px;background:#8b5cf6;color:white;font-weight:800}.hero-actions button+button{background:#211a31;border:1px solid #3a2e4d}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.stat{padding:14px 8px;text-align:center;border:1px solid #252237;border-radius:17px;background:#11101b}.stat b{display:block;font-size:17px}.stat small,.tile small,.bottom small{display:block;color:#85859b;font-size:10px;margin-top:4px}.section-title{font-size:15px;font-weight:800;margin:21px 2px 11px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.tile{min-height:110px;text-align:left;padding:16px;border:1px solid #28243a;border-radius:20px;background:#12111d;color:white}.tile span{font-size:25px;display:block;margin-bottom:12px}.tile b{font-size:14px}.empty{padding:25px;text-align:center;border:1px dashed #2d2940;border-radius:18px;color:#77758a;font-size:12px}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(5,1fr);padding:10px 8px 13px;background:#0d0c16ee;backdrop-filter:blur(18px);border-top:1px solid #252237}.bottom button{border:0;background:none;color:#77758d;font-size:20px}.bottom button.active{color:#a879ff}.bottom small{font-size:9px} .page{padding-bottom:20px}.back{border:0;background:#171421;color:#aaa5bb;padding:10px 14px;border-radius:12px;margin-bottom:16px}.list{display:grid;gap:10px}.option{padding:17px;border:1px solid #2b263b;border-radius:17px;background:#12111d;color:white;text-align:left}.option b{display:block}.option small{color:#858198}
+/* NexaMine Deposit Network Fix */
+
+.network {
+    overflow: hidden;
+    position: relative;
+}
+
+.network img,
+.network .logo,
+.network .coin-logo,
+.network svg {
+    width: 56px !important;
+    height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    object-fit: contain !important;
+    display: block;
+}
+
+.network {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 82px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+}
+
+.network > div {
+    flex: 1;
+}
+
+.network strong,
+.network b {
+    font-size: 16px;
+}
+
+.network span {
+    font-size: 12px;
+}
