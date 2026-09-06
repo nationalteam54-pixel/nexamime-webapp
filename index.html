@@ -1,173 +1,419 @@
-<!-- ================= DEPOSIT ================= -->
-<div class="page" id="deposit">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <div class="page-title">
-        💳 Deposit
+    <title>NexaMine</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #05070d;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .app {
+            max-width: 480px;
+            min-height: 100vh;
+            margin: auto;
+            padding: 18px;
+            padding-bottom: 105px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #00e5ff;
+        }
+
+        .settings {
+            font-size: 21px;
+            cursor: pointer;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .balance-card {
+            background: linear-gradient(145deg, #111a28, #081018);
+            border: 1px solid rgba(0, 229, 255, 0.30);
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.08);
+            margin-bottom: 18px;
+        }
+
+        .label {
+            color: #8b98aa;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .balance {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .coin {
+            color: #00e5ff;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat {
+            background: #0d131d;
+            border: 1px solid #182333;
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action {
+            background: #0d131d;
+            border: 1px solid #1b293b;
+            color: white;
+            border-radius: 18px;
+            padding: 20px 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .action:active {
+            transform: scale(0.97);
+        }
+
+        .action-icon {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .page-title {
+            font-size: 27px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .page-subtitle {
+            color: #8996a8;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #0d131d;
+            border: 1px solid #1b293b;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 14px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            color: #8f9bad;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .plan-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .plan {
+            background: #0d131d;
+            border: 1px solid #1b293b;
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .plan-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .plan-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .plan-rate {
+            color: #00e5ff;
+            font-weight: 700;
+        }
+
+        .plan-info {
+            color: #8b98aa;
+            font-size: 13px;
+        }
+
+        .main-button {
+            width: 100%;
+            border: none;
+            background: linear-gradient(135deg, #00cfe8, #008cff);
+            color: white;
+            border-radius: 15px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .network-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .network {
+            background: #101824;
+            border: 1px solid #1b293b;
+            color: white;
+            border-radius: 17px;
+            padding: 18px 10px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .network small {
+            display: block;
+            color: #7f8b9d;
+            margin-top: 5px;
+            font-weight: normal;
+        }
+
+        .referral-box {
+            background: linear-gradient(145deg, #101b2a, #0a111b);
+            border: 1px solid rgba(0, 229, 255, 0.20);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .referral-link {
+            background: #070b12;
+            border: 1px solid #1d2b3e;
+            border-radius: 12px;
+            padding: 13px;
+            margin-top: 12px;
+            color: #00e5ff;
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #182333;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            color: #8491a3;
+        }
+
+        .profile-value {
+            font-weight: 600;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 456px;
+            background: rgba(13, 19, 29, 0.97);
+            border: 1px solid #1b293b;
+            border-radius: 22px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding: 9px 5px;
+            backdrop-filter: blur(15px);
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #7d8999;
+            font-size: 11px;
+            padding: 7px 2px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #00e5ff;
+        }
+
+        .nav-icon {
+            display: block;
+            font-size: 19px;
+            margin-bottom: 4px;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 360px) {
+            .balance {
+                font-size: 29px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">
+            NEXA<span>MINE</span>
+        </div>
+
+        <div class="settings">
+            ⚙️
+        </div>
     </div>
 
-    <div class="page-subtitle">
-        Select your preferred network.
-    </div>
 
-    <div class="card">
+    <!-- ================= HOME ================= -->
 
-        <div class="label">
-            AVAILABLE BALANCE
+    <div class="page active" id="home">
+
+        <div class="balance-card">
+
+            <div class="label">
+                TOTAL BALANCE
+            </div>
+
+            <div class="balance">
+                0.000000
+            </div>
+
+            <div class="coin">
+                NEXA
+            </div>
+
         </div>
 
-        <div class="balance">
-            0.000000
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="label">
+                    MINING POWER
+                </div>
+
+                <div class="stat-value">
+                    0 GH/s
+                </div>
+            </div>
+
+
+            <div class="stat">
+                <div class="label">
+                    DAILY PROFIT
+                </div>
+
+                <div class="stat-value">
+                    0 NEXA
+                </div>
+            </div>
+
         </div>
 
-        <div class="coin">
-            NEXA
-        </div>
 
-    </div>
+        <div class="actions">
 
-
-    <!-- NETWORK SELECTION -->
-    <div class="card">
-
-        <div class="card-title">
-            Select Network
-        </div>
-
-        <div class="network-grid">
-
-            <!-- TRX -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="trx"
-                onclick="nexaSelectDepositNetwork('trx', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#ff060a"/>
-                    <path fill="#fff"
-                        d="M9 8l22 4-8 20-5-13-9-11zm4 4l5 7 2 5 6-9-13-3z"/>
-                </svg>
-
-                <div class="network-name">TRX</div>
-                <small>TRON</small>
+            <div class="action" onclick="showPage('mine')">
+                <div class="action-icon">⛏️</div>
+                Mining
             </div>
 
-
-            <!-- GRAM -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="gram"
-                onclick="nexaSelectDepositNetwork('gram', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#0098ea"/>
-                    <path fill="#fff"
-                        d="M11 10h18c2.4 0 3.5 2.7 2 4.5L21.8 27c-.9 1.2-2.7.6-2.7-.9v-8.8l-7.3-4.8C9.7 11.6 10.1 10 11 10zm2.8 3l4.4 2.9V14h-4.4zm8.4 0v10.2L28.5 13z"/>
-                </svg>
-
-                <div class="network-name">GRAM</div>
-                <small>TON</small>
+            <div class="action" onclick="showPage('deposit')">
+                <div class="action-icon">💳</div>
+                Deposit
             </div>
 
-
-            <!-- BNB -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="bnb_bep20"
-                onclick="nexaSelectDepositNetwork('bnb_bep20', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#f3ba2f"/>
-                    <path fill="#fff"
-                        d="M20 8l3.3 3.3-3.3 3.3-3.3-3.3L20 8zm-6 6l3.3 3.3-3.3 3.3-3.3-3.3L14 14zm12 0l3.3 3.3-3.3 3.3-3.3-3.3L26 14zm-6 6l3.3 3.3-3.3 3.3-3.3-3.3L20 20zm-6 6l3.3 3.3L14 32.6 10.7 29 14 26zm12 0l3.3 3.3-3.3 3.3-3.3-3.3L26 26z"/>
-                </svg>
-
-                <div class="network-name">BNB</div>
-                <small>BEP20</small>
+            <div class="action" onclick="showPage('withdraw')">
+                <div class="action-icon">💸</div>
+                Withdraw
             </div>
 
-
-            <!-- DOGE -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="doge"
-                onclick="nexaSelectDepositNetwork('doge', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#c2a633"/>
-                    <path fill="#fff"
-                        d="M14 10h7c5.8 0 9 3.6 9 10s-3.2 10-9 10h-7v-7h-3v-3h3v-3h-3v-3h3v-4zm5 5v3h5v3h-5v4h2c2.8 0 4-1.6 4-5s-1.2-5-4-5h-2z"/>
-                </svg>
-
-                <div class="network-name">DOGE</div>
-                <small>Dogecoin</small>
-            </div>
-
-
-            <!-- LTC -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="ltc"
-                onclick="nexaSelectDepositNetwork('ltc', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#345d9d"/>
-                    <path fill="#fff"
-                        d="M16 10h7l-5 15h8l-1.5 5H10l2-6 3-1 4-13h-3z"/>
-                </svg>
-
-                <div class="network-name">LTC</div>
-                <small>Litecoin</small>
-            </div>
-
-
-            <!-- SOL -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="sol"
-                onclick="nexaSelectDepositNetwork('sol', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#111"/>
-                    <path fill="#fff"
-                        d="M9 12h22l-4 4H5l4-4zm4 7h22l-4 4H9l4-4zm-4 7h22l-4 4H5l4-4z"/>
-                </svg>
-
-                <div class="network-name">SOL</div>
-                <small>Solana</small>
-            </div>
-
-
-            <!-- POL -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="pol"
-                onclick="nexaSelectDepositNetwork('pol', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#8247e5"/>
-                    <path fill="#fff"
-                        d="M13 14l7-4 7 4v8l-7 4-4-2v-4l4 2 3-2v-4l-3-2-3 2v8l-4 2-3-2v-4l3-2v4l1 .5V16l2-2z"/>
-                </svg>
-
-                <div class="network-name">POL</div>
-                <small>Polygon</small>
-            </div>
-
-
-            <!-- USDT -->
-            <div
-                class="network nexa-deposit-network"
-                data-code="usdt_trc20"
-                onclick="nexaSelectDepositNetwork('usdt_trc20', this)"
-            >
-                <svg class="network-logo" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="19" fill="#26a17b"/>
-                    <path fill="#fff"
-                        d="M9 10h22v5h-8v3.2c4.9.2 8.5 1.1 8.5 2.4s-3.6 2.2-8.5 2.4V31h-6v-7.6c-4.9-.2-8.5-1.1-8.5-2.4s3.6-2.2 8.5-2.4V15H9v-5zm11 9.3c-4.1 0-7.4.6-7.4 1.3s3.3 1.3 7.4 1.3 7.4-.6 7.4-1.3-3.3-1.3-7.4-1.3z"/>
-                </svg>
-
-                <div class="network-name">USDT</div>
-                <small>TRC20</small>
+            <div class="action" onclick="showPage('refer')">
+                <div class="action-icon">👥</div>
+                Referrals
             </div>
 
         </div>
@@ -175,325 +421,551 @@
     </div>
 
 
-    <!-- WALLET ADDRESS BOX -->
-    <div
-        id="nexaDepositWalletBox"
-        class="card"
-        style="
-            display:none;
-            border:1px solid rgba(0,229,255,0.35);
-            box-shadow:0 0 25px rgba(0,229,255,0.08);
-        "
-    >
+    <!-- ================= MINE ================= -->
 
-        <div class="card-title">
-            💰 Deposit Address
+    <div class="page" id="mine">
+
+        <div class="page-title">
+            ⛏️ Mining
         </div>
 
-        <div
-            id="nexaDepositNetworkTitle"
-            style="
-                color:#00e5ff;
-                font-size:13px;
-                margin-bottom:12px;
-            "
-        ></div>
-
-
-        <div
-            id="nexaDepositAddress"
-            style="
-                background:#070b12;
-                border:1px solid #1d2b3e;
-                border-radius:12px;
-                padding:14px;
-                color:#ffffff;
-                font-size:13px;
-                line-height:1.5;
-                word-break:break-all;
-                margin-bottom:12px;
-            "
-        >
-            Loading...
+        <div class="page-subtitle">
+            Choose a mining plan and start earning.
         </div>
 
 
-        <button
-            class="main-button"
-            onclick="nexaCopyDepositAddress()"
-            style="margin-top:0;"
-        >
-            📋 Copy Address
-        </button>
+        <div class="card">
+
+            <div class="label">
+                CURRENT MINING POWER
+            </div>
+
+            <div class="balance">
+                0 GH/s
+            </div>
+
+            <div class="card-text">
+                No active mining plan.
+            </div>
+
+        </div>
 
 
-        <div
-            id="nexaDepositStatus"
-            style="
-                color:#8996a8;
-                font-size:12px;
-                text-align:center;
-                margin-top:12px;
-                line-height:1.5;
-            "
-        ></div>
+        <div class="plan-grid">
+
+            <div class="plan">
+
+                <div class="plan-top">
+                    <div class="plan-name">
+                        🔵 Starter
+                    </div>
+
+                    <div class="plan-rate">
+                        10%
+                    </div>
+                </div>
+
+                <div class="plan-info">
+                    Investment: 3 COINS
+                    <br>
+                    Daily earning: 0.30 COINS
+                </div>
+
+                <button class="main-button">
+                    Start Mining
+                </button>
+
+            </div>
+
+
+            <div class="plan">
+
+                <div class="plan-top">
+                    <div class="plan-name">
+                        🟢 Basic
+                    </div>
+
+                    <div class="plan-rate">
+                        14%
+                    </div>
+                </div>
+
+                <div class="plan-info">
+                    Investment: 5 COINS
+                    <br>
+                    Daily earning: 0.70 COINS
+                </div>
+
+                <button class="main-button">
+                    Start Mining
+                </button>
+
+            </div>
+
+
+            <div class="plan">
+
+                <div class="plan-top">
+                    <div class="plan-name">
+                        🟠 Pro
+                    </div>
+
+                    <div class="plan-rate">
+                        16%
+                    </div>
+                </div>
+
+                <div class="plan-info">
+                    Investment: 10 COINS
+                    <br>
+                    Daily earning: 1.60 COINS
+                </div>
+
+                <button class="main-button">
+                    Start Mining
+                </button>
+
+            </div>
+
+
+            <div class="plan">
+
+                <div class="plan-top">
+                    <div class="plan-name">
+                        🟣 Premium
+                    </div>
+
+                    <div class="plan-rate">
+                        18%
+                    </div>
+                </div>
+
+                <div class="plan-info">
+                    Investment: 25 COINS
+                    <br>
+                    Daily earning: 4.50 COINS
+                </div>
+
+                <button class="main-button">
+                    Start Mining
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= DEPOSIT ================= -->
+
+    <div class="page" id="deposit">
+
+        <div class="page-title">
+            💳 Deposit
+        </div>
+
+        <div class="page-subtitle">
+            Select your preferred network.
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                AVAILABLE BALANCE
+            </div>
+
+            <div class="balance">
+                0.000000
+            </div>
+
+            <div class="coin">
+                NEXA
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Select Network
+            </div>
+
+            <div class="network-grid">
+
+                <div class="network">
+                    🔺 TRX
+                    <small>TRC20</small>
+                </div>
+
+                <div class="network">
+                    🔷 GRAM
+                    <small>TON</small>
+                </div>
+
+                <div class="network">
+                    🟡 BNB
+                    <small>BEP20</small>
+                </div>
+
+                <div class="network">
+                    🟡 DOGE
+                    <small>Dogecoin</small>
+                </div>
+
+                <div class="network">
+                    🔵 LTC
+                    <small>Litecoin</small>
+                </div>
+
+                <div class="network">
+                    🟣 SOL
+                    <small>Solana</small>
+                </div>
+
+                <div class="network">
+                    🟣 POL
+                    <small>Polygon</small>
+                </div>
+
+                <div class="network">
+                    🟢 USDT
+                    <small>Stablecoin</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= WITHDRAW ================= -->
+
+    <div class="page" id="withdraw">
+
+        <div class="page-title">
+            💸 Withdraw
+        </div>
+
+        <div class="page-subtitle">
+            Withdraw your available balance.
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                AVAILABLE BALANCE
+            </div>
+
+            <div class="balance">
+                0.000000
+            </div>
+
+            <div class="coin">
+                NEXA
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Select Network
+            </div>
+
+            <div class="network-grid">
+
+                <div class="network">
+                    🔺 TRX
+                    <small>TRC20</small>
+                </div>
+
+                <div class="network">
+                    🔷 GRAM
+                    <small>TON</small>
+                </div>
+
+                <div class="network">
+                    🟡 BNB
+                    <small>BEP20</small>
+                </div>
+
+                <div class="network">
+                    🟡 DOGE
+                    <small>Dogecoin</small>
+                </div>
+
+                <div class="network">
+                    🔵 LTC
+                    <small>Litecoin</small>
+                </div>
+
+                <div class="network">
+                    🟣 SOL
+                    <small>Solana</small>
+                </div>
+
+            </div>
+
+            <button class="main-button">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= REFERRAL ================= -->
+
+    <div class="page" id="refer">
+
+        <div class="page-title">
+            👥 Referrals
+        </div>
+
+        <div class="page-subtitle">
+            Invite friends and grow your rewards.
+        </div>
+
+
+        <div class="referral-box">
+
+            <div class="label">
+                TOTAL REFERRAL EARNINGS
+            </div>
+
+            <div class="balance">
+                0.000000
+            </div>
+
+            <div class="coin">
+                NEXA
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="label">
+                    REFERRALS
+                </div>
+
+                <div class="stat-value">
+                    0
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="label">
+                    REWARDS
+                </div>
+
+                <div class="stat-value">
+                    0 NEXA
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                🔗 Your Referral Link
+            </div>
+
+            <div class="referral-link">
+                Referral link will appear here
+            </div>
+
+            <button class="main-button">
+                📤 Share Referral
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <div class="page" id="profile">
+
+        <div class="page-title">
+            👤 Profile
+        </div>
+
+        <div class="page-subtitle">
+            Your NexaMine account information.
+        </div>
+
+
+        <div class="card">
+
+            <div class="profile-row">
+                <div class="profile-label">
+                    Name
+                </div>
+
+                <div class="profile-value">
+                    User
+                </div>
+            </div>
+
+
+            <div class="profile-row">
+                <div class="profile-label">
+                    Username
+                </div>
+
+                <div class="profile-value">
+                    @username
+                </div>
+            </div>
+
+
+            <div class="profile-row">
+                <div class="profile-label">
+                    Balance
+                </div>
+
+                <div class="profile-value">
+                    0.000000
+                </div>
+            </div>
+
+
+            <div class="profile-row">
+                <div class="profile-label">
+                    Mining Power
+                </div>
+
+                <div class="profile-value">
+                    0 GH/s
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= BOTTOM NAV ================= -->
+
+    <div class="bottom-nav">
+
+        <div class="nav-item active" data-page="home"
+             onclick="showPage('home')">
+
+            <span class="nav-icon">⌂</span>
+            Home
+
+        </div>
+
+
+        <div class="nav-item" data-page="mine"
+             onclick="showPage('mine')">
+
+            <span class="nav-icon">⛏</span>
+            Mine
+
+        </div>
+
+
+        <div class="nav-item" data-page="deposit"
+             onclick="showPage('deposit')">
+
+            <span class="nav-icon">＋</span>
+            Deposit
+
+        </div>
+
+
+        <div class="nav-item" data-page="withdraw"
+             onclick="showPage('withdraw')">
+
+            <span class="nav-icon">↗</span>
+            Withdraw
+
+        </div>
+
+
+        <div class="nav-item" data-page="refer"
+             onclick="showPage('refer')">
+
+            <span class="nav-icon">👥</span>
+            Refer
+
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- ================= DEPOSIT LOGIC ================= -->
 <script>
 
-const NEXA_DEPOSIT_API =
-    "https://nexamime-api.onrender.com";
+    // Telegram Web App
+    const tg = window.Telegram.WebApp;
 
-let nexaDepositSelectedAddress = "";
-
-
-async function nexaSelectDepositNetwork(code, element) {
-
-    console.log("NexaMine Deposit Selected:", code);
+    tg.ready();
+    tg.expand();
 
 
-    /* Remove old selection */
-    document
-        .querySelectorAll(".nexa-deposit-network")
-        .forEach(function(card) {
+    // Page navigation
+    function showPage(pageName) {
 
-            card.style.borderColor = "#1b293b";
-            card.style.boxShadow = "none";
-            card.style.background = "#101824";
+        // Hide all pages
+        const pages = document.querySelectorAll(".page");
+
+        pages.forEach(function(page) {
+            page.classList.remove("active");
+        });
+
+
+        // Show selected page
+        const selectedPage =
+            document.getElementById(pageName);
+
+        if (selectedPage) {
+            selectedPage.classList.add("active");
+        }
+
+
+        // Update bottom navigation
+        const navItems =
+            document.querySelectorAll(".nav-item");
+
+        navItems.forEach(function(item) {
+
+            item.classList.remove("active");
+
+            if (
+                item.getAttribute("data-page")
+                === pageName
+            ) {
+                item.classList.add("active");
+            }
 
         });
 
 
-    /* Highlight selected card */
-    element.style.borderColor = "#00e5ff";
-    element.style.boxShadow =
-        "0 0 20px rgba(0,229,255,0.18)";
-    element.style.background = "#111f2d";
-
-
-    const walletBox =
-        document.getElementById("nexaDepositWalletBox");
-
-    const networkTitle =
-        document.getElementById("nexaDepositNetworkTitle");
-
-    const addressBox =
-        document.getElementById("nexaDepositAddress");
-
-    const statusBox =
-        document.getElementById("nexaDepositStatus");
-
-
-    /* Show wallet box */
-    walletBox.style.display = "block";
-
-
-    networkTitle.innerText =
-        "Selected Network: " + code.toUpperCase();
-
-    addressBox.innerText =
-        "Loading wallet address...";
-
-    statusBox.innerText =
-        "Please wait...";
-
-    nexaDepositSelectedAddress = "";
-
-
-    /* Scroll to wallet */
-    setTimeout(function() {
-
-        walletBox.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+        // Scroll to top
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
         });
-
-    }, 100);
-
-
-    try {
-
-        const response =
-            await fetch(
-                NEXA_DEPOSIT_API +
-                "/api/networks"
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "API HTTP " + response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "NexaMine API:",
-            data
-        );
-
-
-        if (!data.success ||
-            !Array.isArray(data.networks)) {
-
-            throw new Error(
-                "Invalid API response"
-            );
-
-        }
-
-
-        const network =
-            data.networks.find(function(item) {
-
-                return item.code === code;
-
-            });
-
-
-        if (!network) {
-
-            addressBox.innerText =
-                "Network not found.";
-
-            statusBox.innerText =
-                "Please try again.";
-
-            return;
-
-        }
-
-
-        /* Deposit disabled */
-        if (network.deposit_enabled === false) {
-
-            addressBox.innerText =
-                "Deposit is currently disabled.";
-
-            statusBox.innerText =
-                "Please try another network.";
-
-            return;
-
-        }
-
-
-        /* No wallet configured yet */
-        if (!network.deposit_address) {
-
-            addressBox.innerText =
-                "Wallet address is not configured yet.";
-
-            statusBox.innerText =
-                "Admin needs to configure this wallet address.";
-
-            return;
-
-        }
-
-
-        /* Success */
-        nexaDepositSelectedAddress =
-            network.deposit_address;
-
-
-        addressBox.innerText =
-            network.deposit_address;
-
-
-        statusBox.innerText =
-            "Send only " +
-            network.coin +
-            " using " +
-            network.network +
-            " network.";
-
-
-    } catch (error) {
-
-        console.error(
-            "NexaMine Deposit Error:",
-            error
-        );
-
-
-        addressBox.innerText =
-            "Unable to load wallet address.";
-
-
-        statusBox.innerText =
-            "Please check your internet connection and try again.";
-
     }
-
-}
-
-
-async function nexaCopyDepositAddress() {
-
-    if (!nexaDepositSelectedAddress) {
-
-        alert(
-            "No wallet address available."
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        await navigator.clipboard.writeText(
-            nexaDepositSelectedAddress
-        );
-
-
-        alert(
-            "Wallet address copied!"
-        );
-
-
-    } catch (error) {
-
-        /* Fallback copy method */
-
-        const textArea =
-            document.createElement("textarea");
-
-        textArea.value =
-            nexaDepositSelectedAddress;
-
-        document.body.appendChild(
-            textArea
-        );
-
-        textArea.select();
-
-        document.execCommand("copy");
-
-        document.body.removeChild(
-            textArea
-        );
-
-
-        alert(
-            "Wallet address copied!"
-        );
-
-    }
-
-}
 
 </script>
+
+</body>
+</html>
